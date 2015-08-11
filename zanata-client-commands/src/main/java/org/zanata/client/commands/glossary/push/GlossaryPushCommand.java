@@ -71,10 +71,9 @@ public class GlossaryPushCommand extends
         glossaryReaders.put("po", new GlossaryPoReader(
                 getLocaleFromMap(getOpts().getSourceLang()),
                 getLocaleFromMap(getOpts().getTransLang()), getOpts()
-                        .getTreatSourceCommentsAsTarget(), getOpts()
                         .getBatchSize()));
-        glossaryReaders.put("csv", new GlossaryCSVReader(getOpts()
-                .getCommentCols(), getOpts().getBatchSize()));
+        glossaryReaders
+            .put("csv", new GlossaryCSVReader(getOpts().getBatchSize()));
     }
 
     private LocaleId getLocaleFromMap(String localLocale) {
@@ -117,8 +116,6 @@ public class GlossaryPushCommand extends
         log.info("Username: {}", getOpts().getUsername());
         log.info("Source language: {}", getOpts().getSourceLang());
         log.info("Translation language: {}", getOpts().getTransLang());
-        log.info("All translation comment: {}", getOpts()
-                .getTreatSourceCommentsAsTarget());
         log.info("Glossary file: {}", getOpts().getGlossaryFile());
         log.info("Batch size: {}", getOpts().getBatchSize());
 

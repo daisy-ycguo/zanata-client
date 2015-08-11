@@ -44,7 +44,12 @@ public class MockGlossaryResource implements GlossaryResource {
     }
 
     @Override
-    public Response get(LocaleId locale) {
+    public Response getLocaleStatistic() {
+        return null;
+    }
+
+    @Override
+    public Response get(LocaleId localeId, LocaleId localeId1, int i, int i1) {
         return MockResourceUtil.notUsedByClient();
     }
 
@@ -56,6 +61,11 @@ public class MockGlossaryResource implements GlossaryResource {
     @Override
     public Response deleteGlossary(LocaleId locale) {
         return Response.ok().build();
+    }
+
+    @Override
+    public Response deleteGlossary(LocaleId localeId, String s) {
+        return MockResourceUtil.notUsedByClient();
     }
 
     @Override
