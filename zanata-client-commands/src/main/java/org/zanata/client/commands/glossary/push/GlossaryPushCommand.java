@@ -42,7 +42,7 @@ import org.zanata.client.config.LocaleMapping;
 import org.zanata.common.LocaleId;
 import org.zanata.rest.client.GlossaryClient;
 import org.zanata.rest.client.RestClientFactory;
-import org.zanata.rest.dto.Glossary;
+import org.zanata.rest.dto.GlossaryEntry;
 
 /**
  *
@@ -142,19 +142,18 @@ public class GlossaryPushCommand extends
                         "UTF-8");
         BufferedReader br = new BufferedReader(inputStreamReader);
 
-        List<Glossary> glossaries = reader.extractGlossary(br);
+        List<List<GlossaryEntry>> glossaries = reader.extractGlossary(br);
 
         int totalEntries = 0;
-        for (Glossary glossary : glossaries) {
-            totalEntries = totalEntries + glossary.getGlossaryEntries().size();
+        for (List<GlossaryEntry> entries : glossaries) {
+            totalEntries = totalEntries + entries.size();
             log.debug("total entries:" + totalEntries);
         }
 
         int totalDone = 0;
-        for (Glossary glossary : glossaries) {
-            log.debug(glossary.toString());
-            client.put(glossary);
-            totalDone = totalDone + glossary.getGlossaryEntries().size();
+        for (List<GlossaryEntry> entries : glossaries) {
+            client.post(entries);
+            totalDone = totalDone + entries.size();
             log.info("Pushed " + totalDone + " of " + totalEntries + " entries");
         }
     }
