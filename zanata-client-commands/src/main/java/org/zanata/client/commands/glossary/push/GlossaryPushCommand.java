@@ -73,7 +73,9 @@ public class GlossaryPushCommand extends
                 getLocaleFromMap(getOpts().getTransLang()), getOpts()
                         .getBatchSize()));
         glossaryReaders
-            .put("csv", new GlossaryCSVReader(getOpts().getBatchSize()));
+                .put("csv", new GlossaryCSVReader(getLocaleFromMap(
+                        getOpts().getSourceLang()),
+                        getOpts().getBatchSize()));
     }
 
     private LocaleId getLocaleFromMap(String localLocale) {
@@ -124,6 +126,10 @@ public class GlossaryPushCommand extends
         if (!glossaryFile.exists()) {
             throw new RuntimeException("File '" + glossaryFile
                     + "' does not exist - check glossaryFile option");
+        }
+
+        if (getOpts().getSourceLang() == null || getOpts().getSourceLang().length() < 0) {
+            throw new RuntimeException("Need to specify source language.");
         }
 
         if (getOpts().getBatchSize() <= 0) {
